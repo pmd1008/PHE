@@ -4,9 +4,30 @@ from tkinter import *
 
 # Глобальная переменная для определения типа фигуры
 count = 0
+a = ''
 
 
 # Внутренности интерфейса
+def white():
+    global a
+    a = 'white'
+def yellow():
+    global a
+    a = 'yellow'
+def blue():
+    global a
+    a = 'blue'
+def red():
+    global a
+    a = 'red'
+
+def black():
+    global a
+    a = 'black'
+
+def green():
+    global a
+    a = 'green'
 def delete():
     canvas.delete(ALL)
     entry_x1.configure(state='disabled')
@@ -18,12 +39,14 @@ def delete():
     entry_x4.configure(state='disabled')
     entry_y4.configure(state='disabled')
 
-
-def line():
+def unlock2():
     entry_x1.configure(state='normal')
     entry_y1.configure(state='normal')
     entry_x2.configure(state='normal')
     entry_y2.configure(state='normal')
+
+def line():
+    unlock2()
     global count
     count += 2
 
@@ -40,10 +63,7 @@ def tri():
 
 
 def square_empty():
-    entry_x1.configure(state='normal')
-    entry_y1.configure(state='normal')
-    entry_x2.configure(state='normal')
-    entry_y2.configure(state='normal')
+    unlock2()
     global count
     count += 4
 
@@ -60,8 +80,15 @@ def square_hard():
     global count
     count += 5
 
+def oval():
+    unlock2()
+    global count
+    count += 6
+
+
 def cat_face():
-    canvas.create_polygon(160,200, 170,50, 220,130, 270,130, 320,50, 330, 200, 245, 260, fill="white", outline="black")
+    global a
+    canvas.create_polygon(170,200, 170,50, 220,130, 270,130, 320,50, 320, 200, 245, 230, outline=a, fill=a)
 
 
 def create():
@@ -75,15 +102,19 @@ def create():
     valy4 = entry_y4.get()
 
     global count
+    global a
 
     if count == 2:
-        canvas.create_line(valx1, valy1, valx2, valy2)
+        canvas.create_line(valx1, valy1, valx2, valy2, outline=a)
     if count == 3:
-        canvas.create_polygon(valx1, valy1, valx2, valy2, valx3, valy3, fill="white", outline="black")
+        canvas.create_polygon(valx1, valy1, valx2, valy2, valx3, valy3, outline=a)
     if count == 4:
-        canvas.create_rectangle(valx1, valy1, valx2, valy2, fill="white", outline="black")
+        canvas.create_rectangle(valx1, valy1, valx2, valy2, outline=a)
     if count == 5:
-        canvas.create_polygon(valx1, valy1, valx2, valy2, valx3, valy3, valx4, valy4, fill="white", outline="black")
+        canvas.create_polygon(valx1, valy1, valx2, valy2, valx3, valy3, valx4, valy4, outline=a)
+    if count == 6:
+        canvas.create_oval(valx1, valy1, valx2, valy2, outline=a)
+
 
     count = 0
 
@@ -148,6 +179,10 @@ x_dir.place(x=32, y=412 + 115)
 x_dir = tk.Label(text='y')
 x_dir.place(x=32, y=437 + 115)
 
+
+#Поля ввода
+
+
 entry_x1 = tk.Entry(win, state='disabled')
 entry_x1.place(x=60, y=415 + 115, width=40)
 
@@ -173,6 +208,46 @@ entry_y4 = tk.Entry(win, state='disabled')
 entry_y4.place(x=210, y=440 + 115, width=40)
 
 # Основной интерфейс
+# Цвета
+# Первый ряд
+img_white = ImageTk.PhotoImage(file='WHITE.png')
+btn_white = Button(win, image=img_white,
+              command=white,
+              bg='white',
+              )
+
+img_blue = ImageTk.PhotoImage(file='BLUE.png')
+btn_blue = Button(win, image=img_blue,
+              command=blue,
+              bg='white',
+              )
+
+img_yellow = ImageTk.PhotoImage(file='YELLOW.png')
+btn_yellow = Button(win, image=img_yellow,
+              command=yellow,
+              bg='white',
+              )
+# Второй ряд
+img_red = ImageTk.PhotoImage(file='RED.png')
+btn_red = Button(win, image=img_red,
+              command=red,
+              bg='white',
+              )
+
+img_black = ImageTk.PhotoImage(file='BLACK.png')
+btn_black = Button(win, image=img_black,
+              command=black,
+              bg='white',
+              )
+
+img_green = ImageTk.PhotoImage(file='GREEN.png')
+btn_green = Button(win, image=img_green,
+              command=green,
+              bg='white',
+              )
+
+
+# Фигуры и остальное
 delete = tk.Button(win, text='Delete all',
                    command=delete,
                    bg='red',
@@ -212,6 +287,14 @@ btn5 = Button(win, image=img5,
               bg='white',
               )
 
+
+img6 = ImageTk.PhotoImage(file='Овал.png')
+btn6 = Button(win, image=img6,
+              command=oval,
+              bg='white',
+              )
+
+
 img_cat = ImageTk.PhotoImage(file='cat face.png')
 btn_cat = Button(win, image=img_cat,
               command=cat_face,
@@ -222,8 +305,23 @@ btn2.place(x=330, y=520, width=60, height=60)
 btn3.place(x=330, y=450, width=60, height=60)
 btn4.place(x=400, y=450, width=60, height=60)
 btn5.place(x=400, y=520, width=60, height=60)
+btn6.place(x=260, y=520, width=60, height=60)
+
+# Первый ряд
+btn_blue.place(x=270 - 9,y=425)
+btn_yellow.place(x=245 - 9,y=425)
+btn_white.place(x=220 - 9,y=425)
+# Второй ряд
+btn_red.place(x=270 - 9,y=450)
+btn_green.place(x=245 - 9,y=450)
+btn_black.place(x=220 - 9,y=450)
+
+
+
 btn_cat.place(x=60,y=375)
+
 go.pack()
 delete.place(x=380, y=375)
+
 
 win.mainloop()
