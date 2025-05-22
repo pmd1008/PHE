@@ -1,15 +1,27 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
 block_cipher = None
-
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=[],
+    datas=[
+        ('BLACK.png', '.'),
+        ('BLUE.png', '.'),
+        ('GREEN.png', '.'),
+        ('RED.png', '.'),
+        ('WHITE.png', '.'),
+        ('YELLOW.png', '.'),
+        ('cat face.png', '.'),
+        ('compass icon.png', '.'),
+        ('Квадрат.png', '.'),
+        ('Линия.png', '.'),
+        ('Овал.png', '.'),
+        ('Параллелепипед.png', '.'),
+        ('Треугольник.png', '.')
+    ],
+    hiddenimports=['PIL.ImageTk'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -28,14 +40,14 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='main',
+    name='PHE',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,  # GUI приложение, консоль не нужна
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
